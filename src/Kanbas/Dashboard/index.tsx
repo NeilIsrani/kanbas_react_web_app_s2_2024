@@ -22,7 +22,7 @@ export default function Dashboard() {
             <div>
               <a className="wd-dashboard-course-link"
                 href="#/Kanbas/Courses/1234/Home">
-                CS1234 React JS
+                CS2345 Algorithms
               </a>
               <p className="wd-dashboard-course-title">
                 Full Stack software developer
@@ -35,7 +35,7 @@ export default function Dashboard() {
             <div>
               <a className="wd-dashboard-course-link"
                 href="#/Kanbas/Courses/1234/Home">
-                CS1234 React JS
+                CS4223 Networks
               </a>
               <p className="wd-dashboard-course-title">
                 Full Stack software developer
@@ -48,7 +48,7 @@ export default function Dashboard() {
             <div>
               <a className="wd-dashboard-course-link"
                 href="#/Kanbas/Courses/1234/Home">
-                CS1234 React JS
+                CS1342 Graphic Design
               </a>
               <p className="wd-dashboard-course-title">
                 Full Stack software developer
@@ -61,7 +61,7 @@ export default function Dashboard() {
             <div>
               <a className="wd-dashboard-course-link"
                 href="#/Kanbas/Courses/1234/Home">
-                CS1234 React JS
+                CS3434 FakeCourse1
               </a>
               <p className="wd-dashboard-course-title">
                 Full Stack software developer
@@ -74,7 +74,7 @@ export default function Dashboard() {
             <div>
               <a className="wd-dashboard-course-link"
                 href="#/Kanbas/Courses/1234/Home">
-                CS1234 React JS
+                CS9734 FakeCourse2
               </a>
               <p className="wd-dashboard-course-title">
                 Full Stack software developer
@@ -87,7 +87,7 @@ export default function Dashboard() {
             <div>
               <a className="wd-dashboard-course-link"
                 href="#/Kanbas/Courses/1234/Home">
-                CS1234 React JS
+                CS3333 FakeCourse3
               </a>
               <p className="wd-dashboard-course-title">
                 Full Stack software developer
