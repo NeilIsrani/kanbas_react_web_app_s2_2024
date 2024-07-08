@@ -16,9 +16,6 @@ export default function Labs() {
         <Route path="Lab2" element={<Lab2 />} />
         <Route path="Lab3" element={<Lab3 />} />
       </Routes>
-        <a href="https://github.com/jannunzi/kanbas-react-web-app-su1-2024">
-Github
-</a>
     </div>
   );
 }
