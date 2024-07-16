@@ -11,3 +11,93 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.wd-search-bar {
+  width: 300px;
+}
+
+.custom-margin {
+  margin-right: 10px; 
+}
+
+.red-text {
+  color: red;
+}
+.wd-assignment-list-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.assignment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.module-control-buttons {
+  display: flex;
+  gap: 8px; /* Adjust the gap between icons as needed */
+}
+#wd-screen-size-label {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: black;
+  color: white;
+  padding: 5px;
+  font-size: 12px;
+  z-index: 1000;
+  width: 220px;
+  text-align: center;
+}
+
+.assignment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+ 
+.space {
+  margin: 0 180px;
+}
+.smallspace {
+  margin: 0 2px;
+}
+
+.assignment-container {
+  margin-bottom: 16px; /* Adjust the bottom margin between assignment items */
+}
+
+/* Define styles for the assignment list items */
+.wd-assignment-list-item {
+  display: flex;
+  flex-direction: column;
+  border-left: 4px solid green; /* Green border on the left */
+  border-top: 1px solid rgb(59, 58, 58);
+  border-right: 1px solid rgb(77, 75, 75);
+  border-bottom: 1px solid rgb(65, 63, 63);
+  margin: 0px; 
+  padding: 20px; 
+  background-color: white; /* Example background color */
+  color: black; /* Example text color */
+}
+
+.wd-margin-assignment-box {
+  padding: 20px;
+  border-left: 2px solid rgb(36, 37, 36); /* Green border on the left */
+  border-top: 2px solid rgb(59, 58, 58);
+  border-right: 2px solid rgb(77, 75, 75);
+  border-bottom: 2px solid rgb(65, 63, 63);
+}
+
+.wd-assignment-link {
+  color: inherit; 
+  text-decoration: none; 
+}
+
+.wd-assignments-editor {
+  border: 0px solid white;
+  padding: 0 rem;
+  background-color: white;
+  border-radius: 0.25rem;
+}
