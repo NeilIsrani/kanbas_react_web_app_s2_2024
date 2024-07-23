@@ -1,18 +1,25 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useParams } from "react-router-dom";
+import * as db from "../../Database";
 
 export default function AssignmentEditor() {
+  const { cid } = useParams();
+  const courses = db.courses;
+  const assignments = db.assignments;
+
+  const course = courses.find(course => course._id === cid);
+  const assignment = assignments.find(assignment => assignment.course === course?._id);
+
   return (
     <div id="wd-assignments-editor" className="p-3 bg-white border rounded">
       <div className="mb-3">
         <label htmlFor="wd-name" className="form-label">Assignment Name</label>
-        <input id="wd-name" value="A1" className="form-control" />
+        <input id="wd-name" value={assignment ? assignment._id : ''} className="form-control" />
       </div>
       <div className="mb-3">
         <label htmlFor="wd-description" className="form-label">Description</label>
-        <textarea id="wd-description" className="form-control" rows={3}>
-          The assignment is available online. Submit a link to the landing page of your Web application running on Netlify.
-        </textarea>
+        <textarea id="wd-description" className="form-control" rows={3} defaultValue={course?.description || ''} />
       </div>
       <div className="container">
         <div className="row mb-3">
@@ -20,7 +27,7 @@ export default function AssignmentEditor() {
             <label htmlFor="wd-points" className="form-label">Points</label>
           </div>
           <div className="col-8">
-            <input id="wd-points" value={100} className="form-control" />
+            <input id="wd-points" defaultValue={100} className="form-control" />
           </div>
         </div>
         <div className="row mb-3">
@@ -54,6 +61,7 @@ export default function AssignmentEditor() {
                   <div className="col-8">
                     <select id="wd-SubmissionType" defaultValue="Online" className="form-control">
                       <option value="Online">Online</option>
+                      {/* Add more options if needed */}
                     </select>
                   </div>
                 </div>
@@ -94,28 +102,29 @@ export default function AssignmentEditor() {
               <div className="card-body">
                 <div className="row mb-2">
                   <div className="col-8">
-                  <label htmlFor="wd-Assign" className="form-label mb-0">Assign to</label>
+                    <label htmlFor="wd-Assign" className="form-label mb-0">Assign to</label>
                     <select id="wd-Assign" className="form-control">
+                      {/* Populate options if needed */}
                     </select>
                   </div>
                 </div>
                 
                 <div className="row mb-3">
-          <div className="col-12">
-            <label htmlFor="wd-date" className="form-label">Due</label>
-            <input type="date" id="wd-date" className="form-control" value="2000-01-21" />
-          </div>
-        </div>
-        <div className="row mb-3">
-          <div className="col-6">
-            <label htmlFor="wd-available-from" className="form-label">Available from</label>
-            <input type="date" id="wd-available-from" className="form-control" value="2000-01-21" />
-          </div>
-          <div className="col-6">
-            <label htmlFor="wd-until" className="form-label">Until</label>
-            <input type="date" id="wd-until" className="form-control" value="2000-01-21" />
-          </div>
-        </div>
+                  <div className="col-12">
+                    <label htmlFor="wd-date" className="form-label">Due</label>
+                    <input type="date" id="wd-date" className="form-control" defaultValue={course?.endDate || ''} />
+                  </div>
+                </div>
+                <div className="row mb-3">
+                  <div className="col-6">
+                    <label htmlFor="wd-available-from" className="form-label">Available from</label>
+                    <input type="date" id="wd-available-from" className="form-control" defaultValue={course?.startDate || ''} />
+                  </div>
+                  <div className="col-6">
+                    <label htmlFor="wd-until" className="form-label">Until</label>
+                    <input type="date" id="wd-until" className="form-control" defaultValue={course?.endDate || ''} />
+                  </div>
+                </div>
 
               </div>
             </div>
@@ -126,6 +135,3 @@ export default function AssignmentEditor() {
   );
 }
 
-
-
-  
