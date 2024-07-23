@@ -1,6 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import * as db from "../../Database";
 
 export default function AssignmentEditor() {
@@ -130,8 +130,15 @@ export default function AssignmentEditor() {
             </div>
           </div>
         </div>
+        <div className="row mt-4">
+          <div className="col-6">
+            <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-secondary">Cancel</Link>
+          </div>
+          <div className="col-6 text-end">
+            <Link to={`/Kanbas/Courses/${cid}/Assignments`} className="btn btn-primary">Save</Link>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-

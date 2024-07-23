@@ -18,7 +18,7 @@ function App() {
           <Route path="/courses/:cid/assignments" element={<Assignments />} />
           {/* Other routes */}
         </Routes>
-        <a href="https://github.com/jannunzi/kanbas-react-web-app-su1-2024">
+        <a href="https://github.com/NeilIsrani/kanbas_react_web_app_s2_2024">
           Github
         </a>
       </div>
