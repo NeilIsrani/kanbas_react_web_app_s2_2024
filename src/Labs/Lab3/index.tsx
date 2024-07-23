@@ -20,7 +20,6 @@ import House from "./House";
 import TodoItem from "./TodoItem";
 import Add from "./Add";
 import JsonStringify from "./JsonStringify";
-import Math from "./Math";
 import Spreading from "./Spreading";
 import Styles from "./Styles";
 import Highlight from "./Highlight";
@@ -44,7 +43,6 @@ export default function Lab3() {
       <LegacyFunctions />
       <ArrowFunctions />
       <TemplateLiterals />
-      <TernaryOperator />
       <ImpliedReturn />
       <SimpleArrays />
       <ArrayIndexAndLength />

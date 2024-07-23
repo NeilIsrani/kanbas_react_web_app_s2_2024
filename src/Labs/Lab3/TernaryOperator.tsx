@@ -5,5 +5,5 @@ let loggedIn = true;
        <h4>Logged In</h4>
        { loggedIn ? <p>Welcome</p> : <p>Please login</p> } <hr/>
     </div>
- );``
+ );
 }
