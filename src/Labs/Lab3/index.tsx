@@ -44,6 +44,7 @@ export default function Lab3() {
       <LegacyFunctions />
       <ArrowFunctions />
       <TemplateLiterals />
+      <TernaryOperator />
       <ImpliedReturn />
       <SimpleArrays />
       <ArrayIndexAndLength />
@@ -67,6 +68,9 @@ export default function Lab3() {
     <Destructing />
     <DestructingImports />
     <PathParameters />
+    <h4>Square of 4</h4>
+      <Square>4</Square>
+      <hr />
     </div>
   );
 }
