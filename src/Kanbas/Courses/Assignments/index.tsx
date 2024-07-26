@@ -39,7 +39,7 @@ export default function Assignments() {
                 <a className="wd-assignment-link" href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
                   <BsGripVertical className="fs-3" /> <span className="smallspace"></span>
                   <FaList /> <span className="smallspace"></span>
-                  <strong>{assignment.title}</strong><span className="spacer"></span><span className="spacer"></span> 
+                  <strong>{assignment.title}</strong><span className="space"></span><span className="space"></span> 
                   <ModuleControlButtons />
                 </a>
               </div>
