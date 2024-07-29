@@ -4,17 +4,21 @@ import Labs from "./Labs";
 import Kanbas from "./Kanbas";
 import AssignmentEditor from "./Kanbas/Courses/Assignments/Editor";
 import Assignments from "./Kanbas/Courses/Assignments";
+import { Provider } from "react-redux";
+import store from "./Kanbas/store";
 
 
 function App() {
   return (
+    <Provider store={store}>
     <HashRouter>
       <div>
         <Routes>
           <Route path="/" element={<Navigate to="/Labs" />} />
           <Route path="/Labs/*" element={<Labs />} />
           <Route path="/Kanbas/*" element={<Kanbas />} />
-          <Route path="/courses/:cid/assignments/:aid" element={<AssignmentEditor />} />
+          <Route path="/courses/:cid/assignments/new" element={<AssignmentEditor />} />
+          <Route path="/courses/:cid/assignments/:aid/*" element={<AssignmentEditor />} />
           <Route path="/courses/:cid/assignments" element={<Assignments />} />
           {/* Other routes */}
         </Routes>
@@ -23,8 +27,8 @@ function App() {
         </a>
       </div>
     </HashRouter>
+    </Provider>
   );
 }
 
 export default App;
-

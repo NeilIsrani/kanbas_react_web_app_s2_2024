@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { SearchBar } from "./SearchBar";
 import ModuleControlButtons from "../Modules/ModuleControlButtons";
 import { IoEllipsisVertical } from "react-icons/io5";
@@ -10,10 +10,15 @@ import * as db from "../../Database";
 export default function Assignments() {
   const { cid } = useParams();
   const assignments = db.assignments.filter(assignment => assignment.course === cid);
+  console.log(assignments)
   const course = db.courses.find(course => course._id === cid);
   
   if (!course) {
     return <div>Course not found</div>;
+  }
+
+  function deleteModule(moduleId: string): void {
+    throw new Error("Function not implemented.");
   }
 
   return (
@@ -22,7 +27,10 @@ export default function Assignments() {
         <SearchBar />
       </button>
       <button id="wd-add-assignment-group" className="btn btn-lg btn-secondary">+ Group</button>
-      <button id="wd-add-assignment" className="btn btn-lg btn-danger">+ Assignment</button>
+      <button id="wd-add-assignment" className="btn btn-lg btn-danger"><div>
+            <Link to={`/Kanbas/Courses/${cid}/Assignments/New`} className="btn btn-secondary">+ Assignment </Link>
+          </div>
+</button>
       <div className="wd-margin-assignment-box bg-secondary p-3">
         <h3 id="wd-assignments-title">
           <BsGripVertical className="fs-3" /> <span className="smallspace"></span> 
@@ -39,8 +47,8 @@ export default function Assignments() {
                 <a className="wd-assignment-link" href={`#/Kanbas/Courses/${cid}/Assignments/${assignment._id}`}>
                   <BsGripVertical className="fs-3" /> <span className="smallspace"></span>
                   <FaList /> <span className="smallspace"></span>
-                  <strong>{assignment.title}</strong><span className="space"></span><span className="spacer"></span> 
-                  <ModuleControlButtons />
+                  <strong>{assignment.title}</strong><span className="space"></span><span className="space"></span><span className="space"></span> 
+                  <IoEllipsisVertical className="fs-4" />
                 </a>
               </div>
               <div>
