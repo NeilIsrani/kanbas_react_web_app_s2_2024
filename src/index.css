@@ -32,7 +32,8 @@ code {
 }
 
 .assignment-header {
-  justify-content: space-between;
+  display: flex;
+  justify-content: flex-start;
   align-items: left;
 }
 

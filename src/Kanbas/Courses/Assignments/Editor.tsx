@@ -82,6 +82,7 @@ export default function AssignmentEditor() {
     }
     navigate(`/Kanbas/Courses/${cid}/Assignments`); // Redirect after saving
   };
+  
 
   if (!course) {
     return <div>Course not found</div>;
