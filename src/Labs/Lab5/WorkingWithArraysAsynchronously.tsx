@@ -7,8 +7,9 @@ import { FaPencil } from "react-icons/fa6";
 
 export default function WorkingWithArraysAsynchronously() {
   const [todos, setTodos] = useState<any[]>([]);
-  const createTodo = async () => {
-    const todos = await client.createTodo();
+
+  const fetchTodos = async () => {
+    const todos = await client.fetchTodos();
     setTodos(todos);
   };
   const editTodo = (todo: any) => {
@@ -21,13 +22,8 @@ export default function WorkingWithArraysAsynchronously() {
     setTodos(todos.map((t) => (t.id === todo.id ? todo : t)));
   };
 
-
-  const fetchTodos = async () => {
-    const todos = await client.fetchTodos();
-    setTodos(todos);
-  };
   const removeTodo = async (todo: any) => {
-    const updatedTodos = await client.removeTodo(todo);
+    const updatedTodos = await client.deleteTodo(todo);
     setTodos(updatedTodos);
   };
   const deleteTodo = async (todo: any) => {
@@ -50,7 +46,7 @@ export default function WorkingWithArraysAsynchronously() {
     <div id="wd-asynchronous-arrays">
       <h3>Working with Arrays Asynchronously</h3>
       <h4> Todos
-           <FaPlusCircle onClick={createTodo}
+           <FaPlusCircle onClick={client.createTodo}
               className="text-success float-end fs-3"
               id="wd-create-todo" /> </h4>
       <ul className="list-group">
@@ -78,7 +74,7 @@ export default function WorkingWithArraysAsynchronously() {
             <TiDelete onClick={() => deleteTodo(todo)}
                 className="text-danger float-end me-2 fs-3"
                 id="wd-delete-todo" />
-             <FaPlusCircle onClick={createTodo}
+             <FaPlusCircle onClick={client.createTodo}
                       className="text-success float-end fs-3"
                       id="wd-create-todo" />
             <FaPlusCircle onClick={postTodo}

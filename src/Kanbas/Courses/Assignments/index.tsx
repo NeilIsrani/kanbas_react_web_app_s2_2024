@@ -19,7 +19,7 @@ export default function Assignments() {
     try {
       const assignments = await client.findAssignmentsForCourse(cid as string);
       console.log("API Response: ", assignments);
-      dispatch(setAssignments({ assignments, courses: [] })); // Adjust according to your state structure
+      dispatch(setAssignments({ assignments })); // Adjust according to your state structure
     } catch (error) {
       console.error("Failed to fetch assignments:", error);
     }
@@ -54,12 +54,11 @@ export default function Assignments() {
   useEffect(() => {
     fetchAssignments();
     fetchAllCourses();
-    console.log("Assignments State:", assignments);
+    //console.log("Assignments State:", assignments);
   }, [cid]);
 
   // Select assignments and courses from the Redux store
-  const assignments = useSelector((state: RootState) => state.assignmentsReducer?.assignments);// make sure it takes the default assigments as in "API Response if none
-  //const courses = useSelector((state: RootState) => state.assignmentsReducer?.courses) || [];// make this variable always be all the courses
+  const assignments = useSelector((state: RootState) => state.assignmentsReducer?.assignments);// make this variable always be all the courses
   
   // Filter assignments based on the course ID
   const courseAssignments = assignments.filter(assignment => assignment.course === cid);
@@ -113,7 +112,7 @@ export default function Assignments() {
                   className="btn btn-danger btn-sm delete-btn">Delete</button>
               </div>
               <div>
-                <span className="red-text">Multiple Modules</span> | <strong>Not available until</strong> {"01-15-22"} | <strong>Due</strong> {"01-22-22"} | 100 pts
+                <span className="red-text">Multiple Modules</span> | <strong>Not available until</strong> {assignment.availableFrom} | <strong>Due</strong> {assignment.dueDate} | {assignment.points} pts
               </div>
             </div>
           ))}

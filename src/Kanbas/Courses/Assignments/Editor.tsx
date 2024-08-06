@@ -15,10 +15,13 @@ export default function AssignmentEditor() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const assignments = useSelector((state: RootState) => state.assignmentsReducer.assignments);
+
+  const assignment = aid && aid !== 'New' ? assignments.find((assignment: { _id: string; }) => assignment._id === aid) : null;
   //const courses = useSelector((state: RootState) => state.assignmentsReducer.courses);
   //const course = courses.find(course => course._id === cid);
 
   // State for the assignment form
+  const [_id, set_id] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [points, setPoints] = useState(100);
@@ -28,15 +31,8 @@ export default function AssignmentEditor() {
   const [dueDate, setDueDate] = useState('');
   const [availableFrom, setAvailableFrom] = useState('');
   const [until, setUntil] = useState('');
-  const [courseID, setCourseID] = useState(cid);
-  const [assignment, setAssignment] = useState({
-    title: "",
-    description: "",
-    points: 0,
-    dueDate: "",
-    availableFromDate: "",
-    availableUntilDate: "",
-  });
+  const [course, setCourse] = useState(cid);
+ 
 
   useEffect(() => {
     if (assignment) {
@@ -47,14 +43,16 @@ export default function AssignmentEditor() {
       setSubmissionType('Online');
       setDescription(assignment.description || "new course"); // Use default description if not provided
       setDueDate(assignment.dueDate);
-      setAvailableFrom(assignment.availableFromDate);
-      setUntil(assignment.availableUntilDate);
+      setAvailableFrom(assignment.availableFrom);
+      setUntil(assignment.until);
+      setCourse(assignment.course)
     }
   }, [assignment]);
 
   const handleSave = async () => {
     // Prepare the assignment object with default values for missing parameters
     const assignmentData = {
+      _id: aid !== 'New' ? assignment?._id : `new-${Date.now()}`, // Generate a unique ID for the new assignment if it's new
       title: title || "",
       description: description || "",
       points: points || 0,
@@ -64,7 +62,7 @@ export default function AssignmentEditor() {
       dueDate: dueDate || "",
       availableFrom: availableFrom || "",
       until: until || "",
-      course: courseID || cid, // Use courseID if provided, otherwise fallback to cid
+      course: course || cid, 
     };
 
     try {
@@ -72,7 +70,6 @@ export default function AssignmentEditor() {
         console.log("wot", aid);
         // Update existing assignment
         await client.updateAssignment({
-          _id: aid,
           ...assignmentData,
         });
       } else {
