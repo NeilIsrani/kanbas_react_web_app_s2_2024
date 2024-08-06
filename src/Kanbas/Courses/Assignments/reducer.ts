@@ -1,64 +1,67 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { assignments as initialAssignments } from "../../Database";
+import { assignments, courses } from "../../Database";
 
 const initialState = {
-  assignments: initialAssignments,
+  assignments: assignments,
+  courses: courses,
 };
 
-const AssignmentSlice = createSlice({
+const assignmentsSlice = createSlice({
   name: "assignments",
   initialState,
   reducers: {
-    addAssignment: (state, { payload }) => {
-        console.log("add assignment reducer")
-        console.log(payload)
+    setAssignments: (state, action) => {
+      state.assignments = action.payload.assignments;
+      state.courses = action.payload.courses;
+    },
+
+    addAssignment: (state, { payload: { assignment, course } }) => {
       const newAssignment = {
-        _id: new Date().getTime().toString(), // Generate a unique ID for the new assignment
-        title: payload.title,
-        description: payload.description,
-        points: payload.points,
-        assignmentGroup: payload.assignmentGroup,
-        gradeDisplay: payload.gradeDisplay,
-        submissionType: payload.submissionType,
-        dueDate: payload.dueDate,
-        availableFrom: payload.availableFrom,
-        until: payload.until,
-        course: payload.courseID, 
+        _id: new Date().getTime().toString(),
+        title: assignment.title,
+        description: course.description,
+        points: assignment.points,
+        assignmentGroup: assignment.assignmentGroup,
+        gradeDisplay: assignment.gradeDisplay,
+        submissionType: assignment.submissionType,
+        dueDate: course.dueDate,
+        availableFrom: course.availableFrom,
+        until: assignment.until,
+        course: assignment.course,
       };
-      console.log(newAssignment)
       state.assignments = [...state.assignments, newAssignment];
-      console.log(state.assignments)
-    }, 
-    deleteAssignment: (state, { payload }) => {
+    },
+
+    deleteAssignment: (state, { payload: assignmentId }) => {
       state.assignments = state.assignments.filter(
-        assignment => assignment._id !== payload
+        (a) => a._id !== assignmentId
       );
     },
-    updateAssignment: (state, { payload }) => {
-        console.log("update assignment reducer")
-      state.assignments = state.assignments.map(assignment =>
-        assignment._id === payload._id ? {
-          ...assignment,
-          title: payload.title,
-          description: payload.description,
-          points: payload.points,
-          assignmentGroup: payload.assignmentGroup,
-          gradeDisplay: payload.gradeDisplay,
-          submissionType: payload.submissionType,
-          dueDate: payload.dueDate,
-          availableFrom: payload.availableFrom,
-          until: payload.until,
-          course: payload.courseID,
-        } : assignment
+
+    updateAssignment: (state, { payload: { assignment, course } }) => {
+      state.assignments = state.assignments.map((a) =>
+        a._id === assignment._id ? { ...assignment, description: course.description, dueDate: course.dueDate, availableFrom: course.availableFrom } : a
+      );
+
+      // Also update the course information if needed
+      state.courses = state.courses.map((c) =>
+        c._id === course._id ? { ...c, ...course } : c
       );
     },
-    editAssignment: (state, { payload }) => {
-      state.assignments = state.assignments.map(assignment =>
-        assignment._id === payload ? { ...assignment, editing: true } : assignment
+
+    editAssignment: (state, { payload: assignmentId }) => {
+      state.assignments = state.assignments.map((a) =>
+        a._id === assignmentId ? { ...a, editing: true } : a
       );
     },
   },
 });
 
-export const { addAssignment, deleteAssignment, updateAssignment, editAssignment } = AssignmentSlice.actions;
-export default AssignmentSlice.reducer;
+export const {
+  setAssignments,
+  addAssignment,
+  deleteAssignment,
+  updateAssignment,
+  editAssignment,
+} = assignmentsSlice.actions;
+export default assignmentsSlice.reducer;

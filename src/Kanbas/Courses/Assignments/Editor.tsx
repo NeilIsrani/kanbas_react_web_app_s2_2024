@@ -1,19 +1,22 @@
+
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';   
+
 import * as db from '../../Database';
-import { useDispatch } from 'react-redux';
-import { addAssignment, updateAssignment } from './reducer'; // Import your action creators
+import { useDispatch, useSelector } from 'react-redux';
+// Import your action creators
+import { setAssignments, addAssignment, updateAssignment } from './reducer';
+import * as client from './client';
+import { RootState } from '../../store';
 
 export default function AssignmentEditor() {
   const { cid, aid } = useParams(); // Get both course and assignment IDs from params
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const courses = db.courses;
-  const assignments = db.assignments;
-
-  const course = courses.find(course => course._id === cid);
-  const assignment = aid ? assignments.find(assignment => assignment._id === aid) : null;
+  const assignments = useSelector((state: RootState) => state.assignmentsReducer.assignments);
+  //const courses = useSelector((state: RootState) => state.assignmentsReducer.courses);
+  //const course = courses.find(course => course._id === cid);
 
   // State for the assignment form
   const [title, setTitle] = useState('');
@@ -26,66 +29,66 @@ export default function AssignmentEditor() {
   const [availableFrom, setAvailableFrom] = useState('');
   const [until, setUntil] = useState('');
   const [courseID, setCourseID] = useState(cid);
+  const [assignment, setAssignment] = useState({
+    title: "",
+    description: "",
+    points: 0,
+    dueDate: "",
+    availableFromDate: "",
+    availableUntilDate: "",
+  });
 
   useEffect(() => {
-    if (assignment && course) {
+    if (assignment) {
       setTitle(assignment.title);
-      setPoints(100);
+      setPoints(assignment.points);
       setAssignmentGroup('ASSIGNMENTS');
       setGradeDisplay('Percentage');
       setSubmissionType('Online');
-      setDescription(course.description);
-      setDueDate(course.endDate );
-      setAvailableFrom(course.startDate );
-      setUntil(course.endDate );
+      setDescription(assignment.description || "new course"); // Use default description if not provided
+      setDueDate(assignment.dueDate);
+      setAvailableFrom(assignment.availableFromDate);
+      setUntil(assignment.availableUntilDate);
     }
-  }, [assignment, course]);
+  }, [assignment]);
 
-  const handleSave = () => {
-    if (aid != 'New') {
-      console.log({aid})
-      const updatedAssignment = {
-        ...assignment,
-        title,
-        description,
-        points,
-        assignmentGroup,
-        gradeDisplay,
-        submissionType,
-        dueDate,
-        availableFrom,
-        until,
-        courseID, 
-      };
-      console.log("calling dispatch update")
-      dispatch(updateAssignment(updatedAssignment)); 
-    } 
-    else {
-      console.log("new assignment")
-      const newAssignment = {
-        _id: `new-${Date.now()}`, // Generate a unique ID for the new assignment
-        title,
-        description,
-        points,
-        assignmentGroup,
-        gradeDisplay,
-        submissionType,
-        dueDate,
-        availableFrom,
-        until,
-        courseID, 
-      };
-      //useEffect();
-      console.log("calling dispatch add")
-      dispatch(addAssignment(newAssignment)); // Add the new assignment
-      console.log("calling dispatch add2")
+  const handleSave = async () => {
+    // Prepare the assignment object with default values for missing parameters
+    const assignmentData = {
+      title: title || "",
+      description: description || "",
+      points: points || 0,
+      assignmentGroup: assignmentGroup || "ASSIGNMENTS",
+      gradeDisplay: gradeDisplay || "Percentage",
+      submissionType: submissionType || "Online",
+      dueDate: dueDate || "",
+      availableFrom: availableFrom || "",
+      until: until || "",
+      course: courseID || cid, // Use courseID if provided, otherwise fallback to cid
+    };
+
+    try {
+      if (aid !== 'New') {
+        console.log("wot", aid);
+        // Update existing assignment
+        await client.updateAssignment({
+          _id: aid,
+          ...assignmentData,
+        });
+      } else {
+        // Create new assignment
+        await client.createAssignment(cid as string, assignmentData);
+
+      
+      }
+      navigate(`/Kanbas/Courses/${cid}/Assignments`); 
+     
+    } catch (error) {
+      console.error("Failed to save assignment:", error);
     }
-    navigate(`/Kanbas/Courses/${cid}/Assignments`); // Redirect after saving
   };
+  
 
-  if (!course) {
-    return <div>Course not found</div>;
-  }
 
   return (
     <div id="wd-assignments-editor" className="p-3 bg-white border rounded">

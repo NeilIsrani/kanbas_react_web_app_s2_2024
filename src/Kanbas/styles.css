@@ -62,6 +62,7 @@ body {
   display: flex;
   align-items: center; /* Vertically center items */
   text-decoration: none; /* Remove underline from links */
+  flex-grow: 1; 
 }
 
 .wd-assignment-link strong {
@@ -84,3 +85,9 @@ body {
   justify-content: flex-start; /* Align items to the left */
 }
 
+.delete-btn {
+  padding: 0.5rem 0.75rem;
+  font-size: 0.90rem;
+  line-height: 1;
+  margin-left: auto; /* This will push the button to the right */
+}
