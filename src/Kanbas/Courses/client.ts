@@ -1,6 +1,6 @@
 import axios from "axios";
 import { USERS_API } from "./People/client";
-const REMOTE_SERVER = "http://localhost:4000";
+const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
 const COURSES_API = `${REMOTE_SERVER}/api/courses`;
 export const createCourse = async (course: any) => {
     const response = await axios.post(COURSES_API, course);
