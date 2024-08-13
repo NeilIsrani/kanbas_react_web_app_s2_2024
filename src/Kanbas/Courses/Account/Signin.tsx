@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as client from "./client";
+import * as client2 from "../Assignments/client"
 import { useDispatch } from "react-redux";
 import { setCurrentUser } from "./reducer";
 export default function Signin() {
@@ -8,14 +9,26 @@ export default function Signin() {
   const [credentials, setCredentials] = useState<any>({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // const signin = async () => {
+  //   try {
+  //     const currentUser = await client.signin(credentials);
+  //     //const data = await client2.findAssignmentsForCourse("RS101");
+  //     // if (data){
+  //     //   console.log(data);
+  //     // }
+  //     if (currentUser) {
+  //       dispatch(setCurrentUser(currentUser));
+  //     } 
+  //     navigate("/Kanbas/Account/Profile");
+  //   } catch (err: any) {
+  //     setError(err.response.data.message);
+  //   }
+  // };
+
   const signin = async () => {
-    try {
-      const currentUser = await client.signin(credentials);
-     dispatch(setCurrentUser(currentUser));
-      navigate("/Kanbas/Account/Profile");
-    } catch (err: any) {
-      setError(err.response.data.message);
-    }
+    await client.signin(credentials);
+    navigate("/Kanbas/Account/Profile");
   };
 
   const handleSignup = () => {
