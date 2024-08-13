@@ -1,4 +1,5 @@
 import axios from "axios";
+import { USERS_API } from "./People/client";
 const REMOTE_SERVER = "http://localhost:4000";
 const COURSES_API = `${REMOTE_SERVER}/api/courses`;
 export const createCourse = async (course: any) => {
@@ -20,3 +21,17 @@ export const deleteCourse = async (id: string) => {
     return response.data;
   };
   
+  export const findUsersByRole = async (role: string) => {
+  const response = await
+    axios.get(`${USERS_API}?role=${role}`);
+  return response.data;
+};
+
+export const deleteUser
+  = async (userId: string) => {
+    const response = await
+      axios.delete( `${USERS_API}/${userId}` );
+    return response.data;
+};
+
+

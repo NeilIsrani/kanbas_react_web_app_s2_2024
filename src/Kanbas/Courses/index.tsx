@@ -6,7 +6,9 @@ import Home from "./Home";
 import Assignments from "./Assignments";
 import AssignmentEditor from "./Assignments/Editor";
 import Grades from "./Grades";
+import PeopleTable from "./People/table";
 import React from "react";
+import Profile from "./Account/Profile";
 
 
 export default function Courses({ courses }: { courses: any[]; }) {
@@ -37,6 +39,9 @@ export default function Courses({ courses }: { courses: any[]; }) {
                 <Route path="/Piazza" element={<h1>"Piazza"</h1>} />
                 <Route path="/Zoom" element={<h1>"Zoom"</h1>} />
                 <Route path="/Quizzes" element={<h1>"Quizzes"</h1>} />
+                <Route path="/People" element={<PeopleTable/>} />
+                <Route path="/People/:uid" element={<PeopleTable/>} />
+                <Route path="/Profile" element={<Profile/>} />
               </Routes>
             </td>
           </tr>
