@@ -1,5 +1,5 @@
 import * as client from "./client";
-import * as client2 from "../Account/client";
+import * as client2 from "../client";
 import { useEffect, useState } from "react";
 import { setCurrentUser, setCourses } from "./reducer";
 import { useDispatch } from "react-redux";
