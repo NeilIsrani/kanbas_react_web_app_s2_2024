@@ -50,4 +50,8 @@ export const deleteUser = async (user: any) => {
 };
 
 
+
+export function fetchAllCourses() {
+  throw new Error("Function not implemented.");
+}
   

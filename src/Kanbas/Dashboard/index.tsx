@@ -23,7 +23,7 @@ export default function Dashboard({
       <div className="main-content">
         <div id="wd-dashboard">
           <h1 id="wd-dashboard-title">
-            Dashboard
+            Dashboard ({currentUser.name})
             </h1>
           <h5>
             New Course

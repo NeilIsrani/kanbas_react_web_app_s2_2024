@@ -27,8 +27,13 @@ export default function Signin() {
   // };
 
   const signin = async () => {
-    await client.signin(credentials);
-    navigate("/Kanbas/Account/Profile");
+    try {
+      const currentUser = await client.signin(credentials);
+      dispatch(setCurrentUser(currentUser));
+      navigate("/Kanbas/Account/Profile");
+    } catch (err: any) {
+      setError(err.response.data.message);
+    }
   };
 
   const handleSignup = () => {

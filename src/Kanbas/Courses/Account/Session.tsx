@@ -1,6 +1,7 @@
 import * as client from "./client";
+import * as client2 from "../Account/client";
 import { useEffect, useState } from "react";
-import { setCurrentUser } from "./reducer";
+import { setCurrentUser, setCourses } from "./reducer";
 import { useDispatch } from "react-redux";
 export default function Session({ children }: { children: any }) {
   const [pending, setPending] = useState(true);
@@ -12,8 +13,15 @@ export default function Session({ children }: { children: any }) {
     } catch (err: any) {
       console.error(err);
     }
+    try {
+      const courses = await client2.fetchAllCourses();
+      dispatch(setCourses(courses));
+    } catch (err: any) {
+      console.error(err);
+    }
     setPending(false);
   };
+
   useEffect(() => {
     fetchProfile();
   }, []);
