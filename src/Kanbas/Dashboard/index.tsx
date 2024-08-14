@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import ProtectedContent from "../ProtectedContent";
 
 export default function Dashboard({
   courses,
@@ -23,8 +24,9 @@ export default function Dashboard({
       <div className="main-content">
         <div id="wd-dashboard">
           <h1 id="wd-dashboard-title">
-            Dashboard ({currentUser.name})
+            Dashboard {currentUser && <>({currentUser.name}) </>}
             </h1>
+            <ProtectedContent>
           <h5>
             New Course
             <button
@@ -56,6 +58,7 @@ export default function Dashboard({
               }
             />
           </h5>
+          </ProtectedContent>
           <hr />
           <hr />
           <h2 id="wd-dashboard-published">
