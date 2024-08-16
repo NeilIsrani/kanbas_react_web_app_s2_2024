@@ -16,12 +16,12 @@ const coursesSlice = createSlice({
       const newCourse = {
         _id: new Date().getTime().toString(),
         name: course.name,
-        number: "",
-        startDate: "",
-        endDate: "",
-        department: "",
-        credits: 0,
-        description: "",
+        number: "NA",
+        startDate: "NA",
+        endDate: "NA",
+        department: "NA",
+        credits: 1,
+        description: "NA",
       };
       state.courses = [...state.courses, newCourse] as any;
     },
