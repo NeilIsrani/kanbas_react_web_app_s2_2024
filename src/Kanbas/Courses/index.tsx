@@ -9,7 +9,6 @@ import Grades from "./Grades";
 import PeopleTable from "./People/table";
 import React from "react";
 import Profile from "./Account/Profile";
-import Session from "./Account/Session";
 
 
 export default function Courses({ courses }: { courses: any[]; }) {
@@ -19,7 +18,6 @@ export default function Courses({ courses }: { courses: any[]; }) {
   const { pathname } = useLocation();
 
   return (
-    <Session>
     <div id="wd-courses">
       <h2>
         {course && course.name} &gt; {pathname.split("/")[4]}
@@ -50,7 +48,6 @@ export default function Courses({ courses }: { courses: any[]; }) {
         </tbody>
       </table>
     </div>
-      </Session>
   );
 }
 
