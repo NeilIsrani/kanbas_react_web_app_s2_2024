@@ -5,7 +5,7 @@ const request = axios.create({
 //const axiosWithCredentials = axios.create({ withCredentials: tru
 export const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
 //export const USERS_API = `${REMOTE_SERVER}/api/users`;
-export const USERS_API = 'https://react-app-node-server-6.onrender.com/api/users';
+export const USERS_API = `${REMOTE_SERVER}/api/users`;
 
 export const signin = async (credentials: any) => {
   const response = await request.post( `${USERS_API}/signin`, credentials );
