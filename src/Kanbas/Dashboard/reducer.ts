@@ -14,9 +14,14 @@ const coursesSlice = createSlice({
 
     addCourse: (state, { payload: course }) => {
       const newCourse = {
-        _id: new Date().getTime().toString(), 
+        _id: new Date().getTime().toString(),
         name: course.name,
-        description: course.description,
+        number: "",
+        startDate: "",
+        endDate: "",
+        department: "",
+        credits: 0,
+        description: "",
       };
       state.courses = [...state.courses, newCourse] as any;
     },

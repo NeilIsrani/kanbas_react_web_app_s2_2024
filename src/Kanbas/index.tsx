@@ -38,7 +38,7 @@ export default function Kanbas() {
   };
 
   useEffect(() => {
-    console.error("this nonsense is happening");
+    //console.error("this nonsense is happening");
     fetchCourses();
   }, []);
 
