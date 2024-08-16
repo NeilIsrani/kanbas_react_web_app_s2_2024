@@ -9,8 +9,7 @@ export default function CourseNavigation() {
   const location = useLocation();
   const { currentUser } = useSelector((state: any) => state.accountReducer);
   const { pathname } = useLocation();
-  const links = currentUser ? ["Profile"] : ["Signin", "Signup"];
-
+  const links = currentUser ? [ "Profile", "Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades"] : ["Signin", "Signup", "Home", "Modules", "Piazza", "Zoom", "Assignments", "Quizzes", "Grades"];
   return (
     <div id="wd-courses-navigation" className="list-group fs-5 rounded-0 course-navigation">
       {links.map((link) => (
