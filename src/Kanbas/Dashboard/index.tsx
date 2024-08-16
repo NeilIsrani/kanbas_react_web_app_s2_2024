@@ -30,7 +30,13 @@ export default function Dashboard() {
 
   const addNewCourse = async () => {
     try {
-      const newCourse = { ...course };
+      const newCourse = { ...course, 
+        number: "",
+        startDate: "",
+        endDate: "",
+        department: "",
+        credits: 0, 
+      };
       const createdCourse = await client.createCourse(newCourse);
       dispatch(addCourse(createdCourse));
       setCourse({ name: "", description: "" }); // Reset form
