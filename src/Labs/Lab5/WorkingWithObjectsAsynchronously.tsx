@@ -33,7 +33,6 @@ export default function WorkingWithObjectsAsynchronously() {
       <button className="btn btn-primary me-2" onClick={() => updateTitle(assignment.title)} >
         Update Title
       </button>
-
       <pre>{JSON.stringify(assignment, null, 2)}</pre>
       <hr />
     </div>
