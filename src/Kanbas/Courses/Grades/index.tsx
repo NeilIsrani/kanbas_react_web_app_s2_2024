@@ -1,10 +1,37 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { SearchBar } from "./SearchBar";
 import { BsArrowBarDown, BsArrowBarUp } from "react-icons/bs";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import * as db from "../../Database";
 
 export default function Grades() {
+  const { cid } = useParams(); // Get the courseId from route params
+
+  // Filter assignments based on the courseId
+  const assignments = db.assignments.filter(assignment => assignment.course === cid);
+
+  // Filter enrollments to get enrolled user IDs for the selected course
+  const enrolledUserIds = db.enrollments
+    .filter(enrollment => enrollment.course === cid)
+    .map(enrollment => enrollment.user);
+
+  // Filter users based on the enrolled user IDs
+  const enrolledUsers = db.users.filter(user => enrolledUserIds.includes(user._id));
+
+  // Helper function to get the grade for a specific student and assignment
+  const getGrade = (studentId: string, assignmentId: string) => {
+    const gradeEntry = db.grades.find(grade => grade.student === studentId && grade.assignment === assignmentId);
+    return gradeEntry ? `${gradeEntry.grade}%` : 'N/A';
+  };
+
+  // Helper function to get the student's full name
+  const getStudentName = (studentId: string) => {
+    const student = db.users.find(user => user._id === studentId);
+    return student ? `${student.firstName} ${student.lastName}` : 'Unknown Student';
+  };
+
   return (
     <div id="wd-assignments" className="container">
       <div className="row mb-3">
@@ -43,28 +70,27 @@ export default function Grades() {
         </div>
       </div>
 
-      <h2 className="mt-4">Tables</h2>
+      <h2 className="mt-4">Grades</h2>
       <table className="table">
         <thead>
-        <tr className="table-secondary">
+          <tr className="table-secondary">
             <th>Student Name</th>
-            <th>A1 Setup (Out of 100)</th>
-            <th>A2 HTML (Out of 100)</th>
-            <th>A3 CSS (Out of 100)</th>
-            <th>A4 BOOTSTRAP (Out of 100)</th>
+            {assignments.map(assignment => (
+              <th key={assignment._id}>{assignment.title} (Out of 100)</th>
+            ))}
           </tr>
         </thead>
-    <tbody>
-      <tr className="table-white"><td>Jonah Gilmour</td><td>100%</td><td>67%</td><td>85%</td><td>85%</td></tr>
-      <tr className="table-secondary"><td>Isaac Thornton</td><td>100%</td><td>75%</td><td>90%</td><td>85%</td></tr>
-      <tr className="table-white"><td>Seif Emam</td><td>100%</td><td>56%</td><td>90%</td><td>85%</td></tr>
-      <tr className="table-secondary"><td>Neil Israni</td><td>100%</td><td>33%</td><td>90%</td><td>85%</td></tr>
-      <tr className="table-white"><td>Parveet Raj Singh</td><td>100%</td><td>99%</td><td>90%</td><td>85%</td></tr>
-    </tbody>
-    
-  </table>
-
+        <tbody>
+          {enrolledUsers.map((user, index) => (
+            <tr key={user._id} className={index % 2 === 0 ? "table-white" : "table-secondary"}>
+              <td>{getStudentName(user._id)}</td>
+              {assignments.map(assignment => (
+                <td key={assignment._id}>{getGrade(user._id, assignment._id)}</td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
-

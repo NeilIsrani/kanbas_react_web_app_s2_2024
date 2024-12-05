@@ -2,10 +2,11 @@ import { MdDoNotDisturbAlt } from "react-icons/md";
 import { FaCheckCircle, FaFileImport, FaFileDownload, FaRegFileAlt, FaBell } from "react-icons/fa";
 import { BiGlobe, BiAnalyse } from "react-icons/bi";
 import { AiOutlineNotification } from "react-icons/ai";
+import React from "react";
 
 export default function CourseStatus() {
   return (
-    <div id="wd-course-status" style={{ width: "300px" }}>
+    <div id="wd-course-status" style={{ width: "300px"}}>
       <h2>Course Status</h2>
       <div className="d-flex">
         <div className="w-50 pe-1">
